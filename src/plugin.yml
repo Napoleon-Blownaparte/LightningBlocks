@@ -1,0 +1,9 @@
+name: LightningBlocks
+main: net.lightningblocks.org.Main
+version: 1.0.0
+author: Bahzinga
+api-version: 1.16
+
+commands:
+  lblocks:
+    permission: lightningblocks.admin
