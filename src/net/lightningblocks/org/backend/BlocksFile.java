@@ -20,18 +20,6 @@ public class BlocksFile {
         File file = new File(plugin.getDataFolder(), "blocks.yml");
         FileConfiguration yml = YamlConfiguration.loadConfiguration(file);
 
-        if (!file.exists()){
-
-            // Create new file
-            try {
-                file.createNewFile();
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         return yml;
 
     }
@@ -52,7 +40,6 @@ public class BlocksFile {
         } else { // If file doesn't exist, create new file and contents
 
             try {
-                file.mkdir();
                 file.createNewFile();
                 yml.save(file);
             } catch (IOException e) {

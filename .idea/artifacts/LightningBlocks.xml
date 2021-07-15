@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LightningBlocks">
+    <output-path>$PROJECT_DIR$/out/artifacts/LightningBlocks</output-path>
+    <root id="archive" name="LightningBlocks.jar">
+      <element id="module-output" name="LightningBlocks" />
+    </root>
+  </artifact>
+</component>

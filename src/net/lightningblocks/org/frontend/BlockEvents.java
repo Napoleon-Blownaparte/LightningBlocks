@@ -16,16 +16,15 @@ public class BlockEvents implements Listener {
         if (player.getInventory().getItemInMainHand().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.translateAlternateColorCodes('&', "&bLightning &3Block"))){
             if (player.hasPermission("lightningblock.place")){
 
-                Integer i = null;
+                Integer i = 2;
                 for (String lb : BlocksFile.get().getConfigurationSection("lightningblocks").getKeys(false)){
                     i++;
 
                 }
-                BlocksFile.get().set("lightningblocks." + i + ".world", event.getBlock().getLocation().getWorld().getName());
-                BlocksFile.get().set("lightningblocks." + i + ".x", event.getBlock().getLocation().getBlockX());
-                BlocksFile.get().set("lightningblocks." + i + ".y", event.getBlock().getLocation().getBlockY());
-                BlocksFile.get().set("lightningblocks." + i + ".z", event.getBlock().getLocation().getBlockZ());
-                BlocksFile.get().set("lightningblocks." + i + ".interval", 15);
+                BlocksFile.get().set("lightningblocks." + 2 + ".world", event.getBlock().getLocation().getWorld().getName());
+                BlocksFile.get().set("lightningblocks." + 2 + ".x", event.getBlock().getLocation().getBlockX());
+                BlocksFile.get().set("lightningblocks." + 2 + ".y", event.getBlock().getLocation().getBlockY());
+                BlocksFile.get().set("lightningblocks." + 2 + ".z", event.getBlock().getLocation().getBlockZ());
                 BlocksFile.save();
 
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&3&lLightning&b&lBlocks &8| &7You added a new Lightning Block!"));
