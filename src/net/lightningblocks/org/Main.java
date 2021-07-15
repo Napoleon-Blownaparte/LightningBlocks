@@ -8,17 +8,26 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Main extends JavaPlugin {
 
-    private static void summon(){
-        for (String lb : BlocksFile.get().getConfigurationSection("lightningblocks").getKeys(false)){
+    private void summon(){
 
-            String world = BlocksFile.get().getString("lightningblocks." + lb + ".world");
-            int X = BlocksFile.get().getInt("lightningblocks." + lb + ".x");
-            int Y = BlocksFile.get().getInt("lightningblocks." + lb + ".Y");
-            int Z = BlocksFile.get().getInt("lightningblocks." + lb + ".Z");
+        File file = new File(this.getDataFolder(), "blocks.yml");
+        FileConfiguration yml = YamlConfiguration.loadConfiguration(file);
+
+        for (String lb : yml.getConfigurationSection("lightningblocks").getKeys(false)){
+
+            String world = yml.getString("lightningblocks." + lb + ".world");
+            int X = yml.getInt("lightningblocks." + lb + ".x");
+            int Y = yml.getInt("lightningblocks." + lb + ".y");
+            int Z = yml.getInt("lightningblocks." + lb + ".z");
 
             Block b = Bukkit.getServer().getWorld(world).getBlockAt(X, Y, Z);
 
@@ -30,8 +39,22 @@ public class Main extends JavaPlugin {
 
     public void onEnable(){
 
+        File file = new File(this.getDataFolder(), "blocks.yml");
+        FileConfiguration yml = YamlConfiguration.loadConfiguration(file);
+
         // Save files
-        BlocksFile.save();
+        if (!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            yml.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Register Events
         getServer().getPluginManager().registerEvents(new BlockEvents(), this);
@@ -42,7 +65,7 @@ public class Main extends JavaPlugin {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
-                if (BlocksFile.get().getConfigurationSection("lightningblocks") != null) {
+                if (yml.getConfigurationSection("lightningblocks") != null) {
                     summon();
                 }
             }
